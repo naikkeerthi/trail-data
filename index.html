@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Condition Toggle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #f3f4f6;
+            font-family: "Roboto", sans-serif;
+            width: 100vw;
+        }
+
+        .main-card {
+            width: 100%;
+        }
+
+        .header {
+            background-color: #50b3f6;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0px 30px;
+        }
+
+        .coffeeweb-logo {
+            width: 100%;
+            width: 200px;
+            background-color: #50b3f6;
+        }
+
+        .status-wrapper {
+            padding: 0px 90px;
+            margin-top: 50px;
+        }
+
+        .status-wrapper .title {
+            font-size: 30px;
+            font-weight: 500;
+        }
+
+        .status-wrapper .desc {
+            color: gray;
+            margin-bottom: 20px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 47px;
+            height: 24px;
+        }
+
+        .toggle-switch .toggle-input {
+            display: none;
+        }
+
+        .toggle-switch .toggle-label {
+            position: absolute;
+            top: 0;
+            left: 8px;
+            width: 42px;
+            height: 26px;
+            background-color: #e2e2e3;
+            border-radius: 34px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-switch .toggle-label::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            background-color: #fff;
+            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch .toggle-input:checked+.toggle-label {
+            background-color: #4CAF50;
+        }
+
+        .toggle-switch .toggle-input:checked+.toggle-label::before {
+            transform: translateX(16px);
+        }
+
+        .toggle-switch.light .toggle-label {
+            background-color: #BEBEBE;
+        }
+
+        .toggle-switch.light .toggle-input:checked+.toggle-label {
+            background-color: #9B9B9B;
+        }
+
+        .toggle-switch.light .toggle-input:checked+.toggle-label::before {
+            transform: translateX(6px);
+        }
+
+        .toggle-switch.dark .toggle-label {
+            background-color: #4B4B4B;
+        }
+
+        .toggle-switch.dark .toggle-input:checked+.toggle-label {
+            background-color: #717171;
+        }
+
+        .toggle-switch.dark .toggle-input:checked+.toggle-label::before {
+            transform: translateX(16px);
+        }
+
+        .service {
+            border: 1px solid lightgray;
+            width: 450px;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            background-color: white;
+        }
+
+        .service .left-section .service_name {
+            font-size: 20px;
+            margin-bottom: 3px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service .left-section .service_name_label {
+            font-size: 15px;
+            color: gray;
+        }
+
+        .service .right-section {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: end;
+        }
+
+        .service .right-section .last-entry-label {
+            font-size: 15px;
+            color: gray;
+            margin-top: 10px;
+        }
+
+        #badge-for-dev,
+        #badge-for-prod {
+            height: 14px;
+            width: 14px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-card">
+        <div class="header">
+            <img class="coffeeweb-logo"
+                src="https://coffeeweb.s3.ap-south-1.amazonaws.com/coffeeweb_transparent_logo.png" alt="">
+        </div>
+        <div class="status-wrapper">
+            <div class="title">Trail Data Current Status</div>
+            <div class="desc">Current Status</div>
+            <div>
+                <div class="service">
+                    <div class="left-section">
+                        <div class="service_name">
+                            Dev <div id="badge-for-dev"></div>
+                        </div>
+                        <div class="service_name_label">
+                            Service name
+                        </div>
+                    </div>
+                    <div class="right-section">
+                        <div class="toggle-switch">
+                            <input class="toggle-input" id="toggle" type="checkbox">
+                            <label class="toggle-label" for="toggle" onclick="toggleCondition(event)"></label>
+                        </div>
+                        <div class="last-entry-label">
+                            <span id="date-and-time-for-dev">
+                                NA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="left-section">
+                        <div class="service_name">
+                            Prod <div id="badge-for-prod"></div>
+                        </div>
+                        <div class="service_name_label">
+                            Service name
+                        </div>
+                    </div>
+                    <div class="right-section">
+                        <div class="toggle-switch">
+                            <input class="toggle-input" id="toggle-2" checked disabled type="checkbox">
+                            <label class="toggle-label" style="background-color: #A5D6A7;" for="toggle-2"></label>
+                        </div>
+                        <div class="last-entry-label">
+                            <span id="date-and-time-for-prod">
+                                NA</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById("toggle-btn");
+        const conditionLabel = document.getElementById("condition-label");
+        const dateAndTimeForDev = document.getElementById("date-and-time-for-dev");
+        const dateAndTimeForProd = document.getElementById("date-and-time-for-prod");
+        const badgeForDev = document.getElementById("badge-for-dev");
+        const badgeForProd = document.getElementById("badge-for-prod");
+
+        function getCurrentCondition() {
+            fetch("/get-condition")
+                .then((response) => response.json())
+                .then((data) => {
+                    const isMarketOn = data.isMarketOn;
+                    const toggleInput = document.getElementById("toggle");
+                    toggleInput.checked = isMarketOn;
+                })
+                .catch((error) => {
+                    console.error("Error fetching initial condition:", error);
+                });
+        }
+
+        function toggleCondition(event) {
+            event.preventDefault();
+            const toggleInput = document.getElementById("toggle");
+            fetch('/toggle-condition', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    isMarketOn: !toggleInput.checked
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const toggleInput = document.getElementById("toggle");
+                    toggleInput.checked = !toggleInput.checked;
+                })
+                .catch(error => {
+                    console.error('Error updating condition:', error);
+                });
+        }
+
+
+        function getLastUpdatedDateAndTime() {
+            fetch("/get-lastUpdated-date-time")
+                .then((response) => response.json())
+                .then((data) => {
+
+                    let { lastUpdatedDateAndTimeForDev, lastUpdatedDateAndTimeForProd, latencyForColorCodeForDev, latencyForColorCodeForProd } = data
+
+                    const getDateAndTime = (dateAndTime) => {
+                        if (!dateAndTime) return "NA"
+                        const date = new Date(dateAndTime);
+
+                        const options = {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: false
+                        };
+
+                        const formattedDate = date.toLocaleString('en-US', options).replace(/GMT.*$/, '').trim();
+
+                        return `${formattedDate}s`
+
+                    }
+
+                    badgeForDev.style.backgroundColor = latencyForColorCodeForDev
+                    badgeForProd.style.backgroundColor = latencyForColorCodeForProd
+
+                    dateAndTimeForDev.textContent = `${getDateAndTime(lastUpdatedDateAndTimeForDev)}`
+                    dateAndTimeForProd.textContent = `${getDateAndTime(lastUpdatedDateAndTimeForProd)}`
+                })
+                .catch((error) => {
+                    console.error("Error fetching initial condition:", error);
+                });
+        }
+
+        getCurrentCondition()
+        getLastUpdatedDateAndTime()
+
+        setInterval(() => {
+            getLastUpdatedDateAndTime()
+        }, 1000)
+
+    </script>
+</body>
+
+</html>
